@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BATHULA SUHARSHITHA - Full Stack Developer | Futuristic Web Solutions</title>
+    <meta name="description" content="Full Stack Developer specializing in modern web applications, AI integration, and scalable solutions. Building the future of digital experiences.">
+    <meta name="author" content="Alex Chen">
+    <meta name="keywords" content="full stack developer, web development, React, Node.js, AI integration, modern web apps">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, hsl(220, 27%, 8%) 0%, hsl(270, 50%, 15%) 50%, hsl(200, 50%, 20%) 100%);
+            background-attachment: fixed;
+            color: hsl(210, 40%, 98%);
+            line-height: 1.6;
+        }
+        
+        /* Typography */
+        .font-orbitron { font-family: 'Orbitron', monospace; }
+        .font-inter { font-family: 'Inter', sans-serif; }
+        
+        /* Color Variables */
+        :root {
+            --neon-blue: hsl(200, 100%, 50%);
+            --neon-purple: hsl(270, 91%, 65%);
+            --neon-teal: hsl(180, 100%, 50%);
+            --neon-pink: hsl(320, 100%, 70%);
+            --glass-bg: hsla(220, 27%, 12%, 0.25);
+            --glass-border: hsla(200, 100%, 80%, 0.2);
+            --muted: hsl(215, 20%, 65%);
+            --background-dark: hsl(220, 27%, 8%);
+        }
+        
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        
+        /* Glassmorphism Effects */
+        .glass {
+            background: linear-gradient(135deg, hsla(220, 27%, 12%, 0.25) 0%, hsla(200, 100%, 80%, 0.1) 100%);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid hsla(200, 100%, 80%, 0.2);
+            box-shadow: 0 8px 32px hsla(220, 27%, 8%, 0.37);
+            border-radius: 12px;
+        }
+        
+        .glass-card {
+            background: linear-gradient(135deg, hsla(220, 27%, 12%, 0.25) 0%, hsla(200, 100%, 80%, 0.1) 100%);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid hsla(200, 100%, 80%, 0.2);
+            box-shadow: 0 8px 32px hsla(220, 27%, 8%, 0.37);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.5s ease;
+        }
+        
+        .glass-card:hover {
+            backdrop-filter: blur(20px);
+            border-color: hsla(200, 100%, 50%, 0.4);
+            box-shadow: 0 0 40px hsla(200, 100%, 50%, 0.6);
+            transform: translateY(-4px);
+        }
+        
+        /* Button Styles */
+        .btn-neon {
+            position: relative;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            font-family: 'Orbitron', monospace;
+            font-weight: 700;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            background: transparent;
+            border: 2px solid var(--neon-blue);
+            color: var(--neon-blue);
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .btn-neon:hover {
+            background: hsla(200, 100%, 50%, 0.1);
+            box-shadow: 0 0 40px hsla(200, 100%, 50%, 0.6);
+            color: hsl(210, 40%, 98%);
+        }
+        
+        .btn-neon-secondary {
+            border-color: var(--neon-purple);
+            color: var(--neon-purple);
+        }
+        
+        .btn-neon-secondary:hover {
+            background: hsla(270, 91%, 65%, 0.1);
+            box-shadow: 0 0 40px hsla(270, 91%, 65%, 0.6);
+        }
+        
+        .btn-neon-accent {
+            border-color: var(--neon-teal);
+            color: var(--neon-teal);
+        }
+        
+        .btn-neon-accent:hover {
+            background: hsla(180, 100%, 50%, 0.1);
+            box-shadow: 0 0 40px hsla(180, 100%, 50%, 0.6);
+        }
+        
+        /* Text Colors */
+        .text-neon-blue { color: var(--neon-blue); }
+        .text-neon-purple { color: var(--neon-purple); }
+        .text-neon-teal { color: var(--neon-teal); }
+        .text-neon-pink { color: var(--neon-pink); }
+        .text-muted { color: var(--muted); }
+        
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideInLeft {
+            from { 
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .animate-slide-up {
+            animation: slideUp 0.6s ease-out;
+        }
+        
+        .animate-slide-in-left {
+            animation: slideInLeft 0.8s ease-out;
+        }
+        
+        .animate-fade-in-delay {
+            animation: fadeIn 1s ease-out 0.3s both;
+        }
+        
+        /* Layout Utilities */
+        .grid { display: grid; }
+        .flex { display: flex; }
+        .items-center { align-items: center; }
+        .justify-center { justify-content: center; }
+        .text-center { text-align: center; }
+        .gap-4 { gap: 1rem; }
+        .gap-6 { gap: 1.5rem; }
+        .gap-8 { gap: 2rem; }
+        .mb-4 { margin-bottom: 1rem; }
+        .mb-6 { margin-bottom: 1.5rem; }
+        .mb-8 { margin-bottom: 2rem; }
+        .mb-12 { margin-bottom: 3rem; }
+        .mb-16 { margin-bottom: 4rem; }
+        .py-20 { padding-top: 5rem; padding-bottom: 5rem; }
+        .px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
+        .p-4 { padding: 1rem; }
+        .p-6 { padding: 1.5rem; }
+        
+        /* Typography Sizes */
+        .text-xs { font-size: 0.75rem; }
+        .text-sm { font-size: 0.875rem; }
+        .text-xl { font-size: 1.25rem; }
+        .text-2xl { font-size: 1.5rem; }
+        .text-3xl { font-size: 1.875rem; }
+        .text-4xl { font-size: 2.25rem; }
+        .text-5xl { font-size: 3rem; }
+        .text-6xl { font-size: 3.75rem; }
+        .text-8xl { font-size: 6rem; }
+        
+        .font-bold { font-weight: 700; }
+        .font-medium { font-weight: 500; }
+        
+        /* Responsive Grid */
+        .grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+        .grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        .grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+        
+        /* Responsive Design */
+        @media (min-width: 768px) {
+            .md\\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .md\\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+            .md\\:text-3xl { font-size: 1.875rem; }
+            .md\\:text-8xl { font-size: 6rem; }
+            .md\\:flex-row { flex-direction: row; }
+        }
+        
+        @media (min-width: 1024px) {
+            .lg\\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .lg\\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+            .lg\\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+            .lg\\:grid-cols-6 { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+        }
+        
+        /* Section Specific Styles */
+        .hero-section {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: linear-gradient(135deg, hsl(220, 27%, 8%) 0%, hsl(270, 50%, 15%) 50%, hsl(200, 50%, 20%) 100%);
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, hsla(200, 100%, 50%, 0.1) 0%, transparent 70%);
+        }
+        
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: url('https://images.unsplash.com/photo-1518709268805-4e9042af2176?q=80&w=1920&auto=format&fit=crop') center/cover;
+        }
+        
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: hsla(220, 27%, 8%, 0.5);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+        }
+        
+        .floating-element {
+            position: absolute;
+            border: 1px solid;
+            opacity: 0.2;
+        }
+        
+        .floating-1 {
+            top: 5rem;
+            left: 2.5rem;
+            width: 5rem;
+            height: 5rem;
+            border-color: var(--neon-teal);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .floating-2 {
+            bottom: 5rem;
+            right: 2.5rem;
+            width: 4rem;
+            height: 4rem;
+            border-color: var(--neon-purple);
+            border-radius: 8px;
+            animation: float 6s ease-in-out infinite 2s;
+        }
+        
+        .floating-3 {
+            top: 50%;
+            left: 5rem;
+            width: 3rem;
+            height: 3rem;
+            border-color: var(--neon-pink);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite 4s;
+        }
+        
+        /* Form Styles */
+        .form-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: hsla(220, 27%, 12%, 0.5);
+            border: 1px solid hsla(220, 27%, 20%, 1);
+            border-radius: 8px;
+            color: hsl(210, 40%, 98%);
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 0 2px hsla(200, 100%, 50%, 0.2);
+        }
+        
+        .form-textarea {
+            resize: none;
+            min-height: 150px;
+        }
+        
+        /* Timeline Styles */
+        .timeline-item {
+            position: relative;
+            padding-left: 2rem;
+        }
+        
+        .timeline-line {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--neon-blue), var(--neon-purple));
+        }
+        
+        .timeline-node {
+            position: absolute;
+            left: -6px;
+            top: 1.5rem;
+            width: 14px;
+            height: 14px;
+            background: var(--neon-teal);
+            border-radius: 50%;
+            box-shadow: 0 0 20px var(--neon-teal);
+        }
+        
+        /* Profile Image */
+        .profile-container {
+            width: 12rem;
+            height: 12rem;
+            border-radius: 50%;
+            margin: 0 auto 2rem;
+            position: relative;
+        }
+        
+        .profile-glass {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, hsla(220, 27%, 12%, 0.25) 0%, hsla(200, 100%, 80%, 0.1) 100%);
+            backdrop-filter: blur(16px);
+            border: 1px solid hsla(200, 100%, 80%, 0.2);
+        }
+        
+        .profile-inner {
+            width: 10rem;
+            height: 10rem;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Flex utilities */
+        .flex-col { flex-direction: column; }
+        .flex-wrap { flex-wrap: wrap; }
+        .items-start { align-items: flex-start; }
+        .justify-between { justify-content: space-between; }
+        .space-y-4 > * + * { margin-top: 1rem; }
+        .space-y-6 > * + * { margin-top: 1.5rem; }
+        .space-y-8 > * + * { margin-top: 2rem; }
+        
+        /* Max width utilities */
+        .max-w-3xl { max-width: 48rem; }
+        .mx-auto { margin-left: auto; margin-right: auto; }
+        
+        /* Responsive text */
+        @media (max-width: 767px) {
+            .text-6xl { font-size: 2.5rem; }
+            .text-8xl { font-size: 3rem; }
+            .text-2xl { font-size: 1.25rem; }
+            .hero-content .flex { flex-direction: column; }
+        }
+        
+        /* Hover effects */
+        .hover\\:scale-105:hover {
+            transform: scale(1.05);
+        }
+        
+        .transition-all {
+            transition: all 0.3s ease;
+        }
+        
+        .transition-colors {
+            transition: color 0.3s ease;
+        }
+        
+        .transition-transform {
+            transition: transform 0.3s ease;
+        }
+        
+        /* Border utilities */
+        .border-t {
+            border-top: 1px solid hsla(220, 27%, 20%, 0.5);
+        }
+        
+        .rounded-lg {
+            border-radius: 8px;
+        }
+        
+        .rounded-full {
+            border-radius: 50%;
+        }
+        
+        /* Width utilities */
+        .w-full { width: 100%; }
+        .w-10 { width: 2.5rem; }
+        .h-10 { height: 2.5rem; }
+        
+        /* Additional spacing */
+        .mt-8 { margin-top: 2rem; }
+        .mt-12 { margin-top: 3rem; }
+        .mt-20 { margin-top: 5rem; }
+        .pt-8 { padding-top: 2rem; }
+        .pt-4 { padding-top: 1rem; }
+        
+        /* Leading utilities */
+        .leading-relaxed { line-height: 1.625; }
+        .leading-tight { line-height: 1.25; }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        
+        <div class="hero-content container px-6">
+            <div class="animate-slide-up">
+                <h1 class="text-6xl md:text-8xl font-orbitron font-bold mb-6">
+                    Hi, I'm <span class="text-neon-blue">BATHULA SUHARSHITHA</span>
+                </h1>
+                <h2 class="text-2xl md:text-3xl font-orbitron font-bold mb-8">
+                    <span class="text-neon-purple">Full Stack</span> Developer
+                </h2>
+                <p class="text-xl md:text-2xl text-muted max-w-3xl mx-auto mb-12 animate-fade-in-delay">
+                    I build modern, scalable, and futuristic web applications that push the boundaries of technology.
+                </p>
+                
+                <div class="flex flex-col md:flex-row gap-6 justify-center items-center animate-fade-in-delay">
+                    <a href="#projects" class="btn-neon">View My Work</a>
+                    <a href="#resume" class="btn-neon-secondary">Download Resume</a>
+                    <a href="#contact" class="btn-neon-accent">Contact Me</a>
+                </div>
+            </div>
+            
+            <div class="floating-element floating-1"></div>
+            <div class="floating-element floating-2"></div>
+            <div class="floating-element floating-3"></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="py-20">
+        <div class="container px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-5xl font-orbitron font-bold mb-4">
+                    About <span class="text-neon-blue">Me</span>
+                </h2>
+                <p class="text-xl text-muted max-w-3xl mx-auto">
+                    I am passionate about software development and software testing. I have a good understanding of Data Structures and Algorithms and experience working with Java, databases, web technologies, and software testing. I enjoy solving problems, learning new things, and improving my skills to stay updated with new technologies.
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-8 items-start">
+                <!-- Profile Section -->
+                <div class="glass-card animate-slide-in-left text-center">
+                    <div class="profile-container">
+                        <div class="profile-glass">
+                            <div class="profile-inner">
+                                <span class="text-4xl font-orbitron font-bold">SB</span>
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-orbitron font-bold mb-4 text-neon-teal">SUHARSHITHA BATHULA</h3>
+                    <p class="text-muted leading-relaxed">
+                        Full Stack Developer with 3+ years of experience building scalable web applications. 
+                        I specialize in modern JavaScript frameworks, little Bit of React, and creating 
+                        intuitive user experiences that solve real-world problems.
+                    </p>
+                </div>
+
+                <!-- Timeline Section -->
+                <div class="space-y-8">
+                    <h3 class="text-3xl font-orbitron font-bold text-neon-purple mb-8">
+                        Development Journey
+                    </h3>
+                    
+                    <div class="timeline-item animate-slide-up">
+                        <div class="timeline-line"></div>
+                        <div class="timeline-node"></div>
+                        <div class="glass-card">
+                            <div class="flex items-center gap-4 mb-4">
+                                <span class="text-2xl font-orbitron font-bold text-neon-blue">2021</span>
+                                <h4 class="text-xl font-orbitron font-bold">Started Coding Journey</h4>
+                            </div>
+                            <p class="text-muted mb-4">Began learning Python</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1 text-xs font-orbitron font-bold bg-muted border border-neon-teal rounded-full text-neon-teal">HTML</span>
+                                <span class="px-3 py-1 text-xs font-orbitron font-bold bg-muted border border-neon-teal rounded-full text-neon-teal">CSS</span>
+                                <span class="px-3 py-1 text-xs font-orbitron font-bold bg-muted border border-neon-teal rounded-full text-neon-teal">JavaScript</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item animate-slide-up">
+                        <div class="timeline-line"></div>
+                        <div class="timeline-node"></div>
+                        <div class="glass-card">
+                            <div class="flex items-center gap-4 mb-4">
+                                <span class="text-2xl font-orbitron font-bold text-neon-blue">2022</span>
+                                <h4 class="text-xl font-orbitron font-bold">Frontend Focus</h4>
+                            </div>
+                            <p class="text-muted mb-4">Mastered React and modern frontend technologies. Created interactive web applications.</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1 text-xs font-orbitron font-bold bg-muted border border-neon-teal rounded-full text-neon-teal">React</span>
+                                <span class="px-3 py-1 text-xs font-orbitron font-bold bg-muted border border-neon-teal rounded-full text-neon-teal">Python</span>
+                                <span class="px-3 py-1 text-xs font-orbitron font-bold bg-muted border border-neon-teal rounded-full text-neon-teal">Java</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item animate-slide-up">
+                        <div class="timeline-line"></div>
+                        <div class="timeline-node"></div>
+                        <div class="glass-card">
+                            <div class="flex items-center gap-4 mb-4">
+                                <span class="text-2xl font-orbitron font-bold text-neon-blue">2023</span>
+                                <h4 class="text-xl font-orbitron font-bold">Full Stack Development</h4>
+                            </div>
+                            <p class="text-muted mb-4">Expanded to backend development with Node.js and databases. Built complete applications.</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1 text-xs font-orbitron font-bold bg-muted border border-neon-teal rounded-full text-neon-teal">Node.js</span>
+                                <span class="px-3 py-1 text-xs font-orbitron font-bold bg-muted border border-neon-teal rounded-full text-neon-teal">MongoDB</span>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item animate-slide-up">
+                        <div class="timeline-line"></div>
+                        <div class="timeline-node"></div>
+                        <div class="glass-card">
+                            <div class="flex items-center gap-4 mb-4">
+                                <span class="text-2xl font-orbitron font-bold text-neon-blue">2024+</span>
+                                <h4 class="text-xl font-orbitron font-bold">Advanced Technologies</h4>
+                            </div>
+                            <p class="text-muted mb-4">Working with cloud platforms, AI integration, and microservices architecture.</p>
+                            <div class="flex flex-wrap gap-2">
+                                
+                                <span class="px-3 py-1 text-xs font-orbitron font-bold bg-muted border border-neon-teal rounded-full text-neon-teal">AI</span>
+                                <span class="px-3 py-1 text-xs font-orbitron font-bold bg-muted border border-neon-teal rounded-full text-neon-teal">ML</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20">
+        <div class="container px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-5xl font-orbitron font-bold mb-4">
+                    Featured <span class="text-neon-purple">Projects</span>
+                </h2>
+                <p class="text-xl text-muted max-w-3xl mx-auto">
+                    Innovative solutions built with cutting-edge technologies and modern development practices.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Project 1 -->
+                <div class="glass-card hover:scale-105 transition-all animate-slide-up">
+                    <div class="mb-6 rounded-lg overflow-hidden">
+                        <div class="aspect-video bg-gradient-to-br from-muted to-background flex items-center justify-center border border-neon-blue rounded-lg">
+                            <span class="text-muted font-orbitron">Heart Disease Prediction using Machine learning</span>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <h3 class="text-2xl font-orbitron font-bold text-neon-blue transition-colors">
+                            Heart Disease Prediction Using Machine Learning
+                        </h3>
+                        <p class="text-muted leading-relaxed">
+                            Heart disease prediction using machine learning involves training models on patient data (like age, cholesterol, blood pressure, etc.) to identify patterns and predict the likelihood of heart disease.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 text-xs font-orbitron font-bold bg-muted border border-neon-purple rounded-full text-neon-purple">Python</span>
+                            <span class="px-3 py-1 text-xs font-orbitron font-bold bg-muted border border-neon-purple rounded-full text-neon-purple">Dja ngo</span>
+                            <span class="px-3 py-1 text-xs font-orbitron font-bold bg-muted border border-neon-purple rounded-full text-neon-purple">SQL</span>
+                            <span class="px-3 py-1 text-xs font-orbitron font-bold bg-muted border border-neon-purple rounded-full text-neon-purple">HTML</span>
+                            <span class="px-3 py-1 text-xs font-orbitron font-bold bg-muted border border-neon-purple rounded-full text-neon-purple">CSS</span>
+                        </div>
+                        <div class="flex gap-4 pt-4">
+                            <a href="https://example.com" target="_blank" class="flex-1 text-center btn-neon-accent">Live Demo</a>
+                            <a href="https://github.com/Suharshitha20" target="_blank" class="flex-1 text-center btn-neon">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="glass-card hover:scale-105 transition-all animate-slide-up">
+                    <div class="mb-6 rounded-lg overflow-hidden">
+                        <div class="aspect-video bg-gradient-to-br from-muted to-background flex items-center justify-center border border-neon-purple rounded-lg">
+                            <span class="text-muted font-orbitron">Finger Print Voting System</span>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <h3 class="text-2xl font-orbitron font-bold text-neon-blue transition-colors">
+                            Finger Print Voting System
+                        </h3>
+                        <p class="text-muted leading-relaxed">
+                            A fingerprint voting system uses biometric authentication to verify voters’ identities through their unique fingerprints, ensuring secure, accurate, and tamper-proof elections.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 text-xs font-orbitron font-bold bg-muted border border-neon-purple rounded-full text-neon-purple">Arduino</span>
+                            <span class="px-3 py-1 text-xs font-orbitron font-bold bg-muted border border-neon-purple rounded-full text-neon-purple">Embedded Systems</span>
+                        </div>
+                        <div class="flex gap-4 pt-4">
+                            <a href="https://example.com" target="_blank" class="flex-1 text-center btn-neon-accent">Live Demo</a>
+                            <a href="https://github.com/Suharshitha20" target="_blank" class="flex-1 text-center btn-neon">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="glass-card hover:scale-105 transition-all animate-slide-up">
+                    <div class="mb-6 rounded-lg overflow-hidden">
+                        <div class="aspect-video bg-gradient-to-br from-muted to-background flex items-center justify-center border border-neon-teal rounded-lg">
+                            <span class="text-muted font-orbitron">To do list Web Application</span>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <h3 class="text-2xl font-orbitron font-bold text-neon-blue transition-colors">
+                            To do list web Application
+                        </h3>
+                        <p class="text-muted leading-relaxed">
+                            A to-do list web application allows users to create, manage, and organize tasks online with features like adding, editing, marking as complete, and deleting tasks for better productivity.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 text-xs font-orbitron font-bold bg-muted border border-neon-purple rounded-full text-neon-purple">HTML</span>
+                            <span class="px-3 py-1 text-xs font-orbitron font-bold bg-muted border border-neon-purple rounded-full text-neon-purple">CSS</span>
+                            <span class="px-3 py-1 text-xs font-orbitron font-bold bg-muted border border-neon-purple rounded-full text-neon-purple">JavaScript</span>
+                            
+                        </div>
+                        <div class="flex gap-4 pt-4">
+                            <a href="https://example.com" target="_blank" class="flex-1 text-center btn-neon-accent">Live Demo</a>
+                            <a href="https://github.com/Suharshitha20" target="_blank" class="flex-1 text-center btn-neon">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="py-20">
+        <div class="container px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-5xl font-orbitron font-bold mb-4">
+                    Skills & <span class="text-neon-teal">Technologies</span>
+                </h2>
+                <p class="text-xl text-muted max-w-3xl mx-auto">
+                    Mastering modern technologies to build exceptional digital experiences.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Frontend -->
+                <div class="glass-card animate-slide-up">
+                    <div class="text-center mb-6">
+                        <h3 class="text-2xl font-orbitron font-bold text-neon-blue mb-2">Frontend</h3>
+                        <div class="w-16 h-0.5 bg-neon-blue mx-auto"></div>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="p-3 rounded-lg bg-muted border border-neon-blue hover:bg-muted transition-all">
+                            <span class="font-orbitron font-medium text-neon-blue">React</span>
+                        </div>
+                        
+                        <div class="p-3 rounded-lg bg-muted border border-neon-blue hover:bg-muted transition-all">
+                            <span class="font-orbitron font-medium text-neon-blue">HTML</span>
+                        </div>
+                        <div class="p-3 rounded-lg bg-muted border border-neon-blue hover:bg-muted transition-all">
+                            <span class="font-orbitron font-medium text-neon-blue">CSS</span>
+                        </div>
+                        <div class="p-3 rounded-lg bg-muted border border-neon-blue hover:bg-muted transition-all">
+                            <span class="font-orbitron font-medium text-neon-blue">JavaScript</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Backend -->
+                <div class="glass-card animate-slide-up">
+                    <div class="text-center mb-6">
+                        <h3 class="text-2xl font-orbitron font-bold text-neon-purple mb-2">Backend</h3>
+                        <div class="w-16 h-0.5 bg-neon-purple mx-auto"></div>
+                    </div>
+                    <div class="space-y-3">
+                        
+                        <div class="p-3 rounded-lg bg-muted border border-neon-purple hover:bg-muted transition-all">
+                            <span class="font-orbitron font-medium text-neon-purple">Java</span>
+                        </div>
+                        <div class="p-3 rounded-lg bg-muted border border-neon-purple hover:bg-muted transition-all">
+                            <span class="font-orbitron font-medium text-neon-purple">Python</span>
+                        </div>
+                        <div class="p-3 rounded-lg bg-muted border border-neon-purple hover:bg-muted transition-all">
+                            <span class="font-orbitron font-medium text-neon-purple">Django</span>
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <!-- Databases -->
+                <div class="glass-card animate-slide-up">
+                    <div class="text-center mb-6">
+                        <h3 class="text-2xl font-orbitron font-bold text-neon-teal mb-2">Databases</h3>
+                        <div class="w-16 h-0.5 bg-neon-teal mx-auto"></div>
+                    </div>
+                    <div class="space-y-3">
+                        
+                        <div class="p-3 rounded-lg bg-muted border border-neon-teal hover:bg-muted transition-all">
+                            <span class="font-orbitron font-medium text-neon-teal">MongoDB</span>
+                        </div>
+                        
+                        <div class="p-3 rounded-lg bg-muted border border-neon-teal hover:bg-muted transition-all">
+                            <span class="font-orbitron font-medium text-neon-teal">MySQL</span>
+                        </div>
+                       
+                    </div>
+                </div>
+
+                <!-- Tools & Cloud -->
+                <div class="glass-card animate-slide-up">
+                    <div class="text-center mb-6">
+                        <h3 class="text-2xl font-orbitron font-bold text-neon-pink mb-2">Tools & Cloud</h3>
+                        <div class="w-16 h-0.5 bg-neon-pink mx-auto"></div>
+                    </div>
+                    <div class="space-y-3">
+                        
+                        <div class="p-3 rounded-lg bg-muted border border-neon-pink hover:bg-muted transition-all">
+                            <span class="font-orbitron font-medium text-neon-pink">Git</span>
+                        </div>
+                        
+                        <div class="p-3 rounded-lg bg-muted border border-neon-pink hover:bg-muted transition-all">
+                            <span class="font-orbitron font-medium text-neon-pink">Django</span>
+                        </div>
+                        
+                        
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Skills Grid -->
+            <div class="mt-20">
+                <h3 class="text-3xl font-orbitron font-bold text-center mb-12 text-neon-purple">
+                    Additional Expertise
+                </h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                    <div class="glass-card text-center p-4 hover:scale-105 transition-transform animate-fade-in-delay">
+                        <span class="font-orbitron font-bold text-sm text-neon-teal">AI</span>
+                    </div>
+                    <div class="glass-card text-center p-4 hover:scale-105 transition-transform animate-fade-in-delay">
+                        <span class="font-orbitron font-bold text-sm text-neon-teal">ML</span>
+                    </div>
+                    <div class="glass-card text-center p-4 hover:scale-105 transition-transform animate-fade-in-delay">
+                        <span class="font-orbitron font-bold text-sm text-neon-teal">Web</span>
+                    </div>
+                    
+                    <div class="glass-card text-center p-4 hover:scale-105 transition-transform animate-fade-in-delay">
+                        <span class="font-orbitron font-bold text-sm text-neon-teal">Testing</span>
+                    </div>
+                    <div class="glass-card text-center p-4 hover:scale-105 transition-transform animate-fade-in-delay">
+                        <span class="font-orbitron font-bold text-sm text-neon-teal">Agile</span>
+                    </div>
+                    
+                    <div class="glass-card text-center p-4 hover:scale-105 transition-transform animate-fade-in-delay">
+                        <span class="font-orbitron font-bold text-sm text-neon-teal">Scrum Technologies</span>
+                    </div>
+    
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Resume Section -->
+    <section id="resume" class="py-20">
+        <div class="container px-6">
+            <div class="glass-card text-center max-w-2xl mx-auto">
+                <h2 class="text-4xl font-orbitron font-bold mb-6 text-neon-teal">
+                    Download Resume
+                </h2>
+                <p class="text-xl text-muted mb-8">
+                    Get a comprehensive overview of my experience, skills, projects, and professional journey in full-stack development.
+                </p>
+                <a href="/Suharshitha-Resume -12.pdf" download class="btn-neon-accent mb-8">
+                    Download PDF Resume
+                </a>
+                
+                <!-- Quick Experience & Education Overview -->
+                <div class="grid md:grid-cols-2 gap-8 mt-12">
+                    
+                    
+                    <div>
+                        <h3 class="text-2xl font-orbitron font-bold mb-6 text-neon-blue">Education</h3>
+                        <div class="space-y-4 text-left">
+                            <div class="p-4 rounded-lg bg-muted/10 border border-border">
+                                <h4 class="font-orbitron font-bold text-neon-purple">Vellore Institute of Technology</h4>
+                                <p class="text-sm text-muted">2019-2026</p>
+                                <p class="text-sm text-muted mt-2">Specialized in Software Engineering and Web Technologies</p>
+                            </div>
+                            <div class="p-4 rounded-lg bg-muted/10 border border-border">
+                                <h4 class="font-orbitron font-bold text-neon-purple">Narayana Junior College</h4>
+                                <p class="text-sm text-muted">2019-2021</p>
+                                
+                            </div>
+                            <div class="p-4 rounded-lg bg-muted/10 border border-border">
+                                <h4 class="font-orbitron font-bold text-neon-purple">Montessori High School</h4>
+                                <p class="text-sm text-muted">2019</p>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20">
+        <div class="container px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-5xl font-orbitron font-bold mb-4">
+                    Get In <span class="text-neon-pink">Touch</span>
+                </h2>
+                <p class="text-xl text-muted max-w-3xl mx-auto">
+                    Ready to collaborate on your next project? Let's build something amazing together.
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-16">
+                <!-- Contact Form -->
+                <div class="glass-card animate-slide-in-left">
+                    <h3 class="text-2xl font-orbitron font-bold mb-8 text-neon-blue">Send Message</h3>
+                    <form class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-orbitron font-bold mb-2">Name</label>
+                            <input type="text" class="form-input" placeholder="Your Name" />
+                        </div>
+                        <div>
+                            <label class="block text-sm font-orbitron font-bold mb-2">Email</label>
+                            <input type="email" class="form-input" placeholder="your@email.com" />
+                        </div>
+                        <div>
+                            <label class="block text-sm font-orbitron font-bold mb-2">Message</label>
+                            <textarea class="form-input form-textarea" placeholder="Tell me about your project..."></textarea>
+                        </div>
+                        <button type="submit" class="w-full btn-neon">Send Message</button>
+                    </form>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="space-y-8 animate-slide-up">
+                    <div class="glass-card">
+                        <h3 class="text-2xl font-orbitron font-bold mb-6 text-neon-purple">Let's Connect</h3>
+                        <p class="text-muted leading-relaxed mb-8">
+                            I'm always open to discussing new opportunities, innovative projects, 
+                            and ways to push the boundaries of technology. Whether you have a 
+                            specific project in mind or just want to chat about the latest in tech, 
+                            feel free to reach out.
+                        </p>
+                        
+                        <!-- Social Links -->
+                        <div class="space-y-4">
+                            <a href="https://github.com/Suharshitha20" target="_blank" class="flex items-center gap-4 p-4 rounded-lg bg-muted/10 border border-border hover:border-neon-teal/50 transition-all hover:bg-muted/20">
+                                <span class="text-2xl">🔗</span>
+                                <div>
+                                    <span class="font-orbitron font-bold hover:text-neon-teal transition-colors">GitHub</span>
+                                    <p class="text-sm text-muted">https://github.com/Suharshitha20</p>
+                                </div>
+                            </a>
+                            <a href="https://www.linkedin.com/in/suharshitha-bathula" target="_blank" class="flex items-center gap-4 p-4 rounded-lg bg-muted/10 border border-border hover:border-neon-teal/50 transition-all hover:bg-muted/20">
+                                <span class="text-2xl">💼</span>
+                                <div>
+                                    <span class="font-orbitron font-bold hover:text-neon-teal transition-colors">LinkedIn</span>
+                                    <p class="text-sm text-muted">https://www.linkedin.com/in/suharshitha-bathula</p>
+                                </div>
+                            </a>
+                            
+                            <a href="mailto:alex@example.com" class="flex items-center gap-4 p-4 rounded-lg bg-muted/10 border border-border hover:border-neon-teal/50 transition-all hover:bg-muted/20">
+                                <span class="text-2xl">📧</span>
+                                <div>
+                                    <span class="font-orbitron font-bold hover:text-neon-teal transition-colors">Email</span>
+                                    <p class="text-sm text-muted">harshithabathula456@gmail.com</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 border-t border-border/50">
+        <div class="container px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <!-- Brand -->
+                <div class="flex items-center gap-4">
+                    <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-neon-blue to-neon-purple flex items-center justify-center">
+                        <span class="font-orbitron font-bold text-sm">SB</span>
+                    </div>
+                    <div>
+                        <h3 class="font-orbitron font-bold">Suharshitha Bathula</h3>
+                        <p class="text-sm text-muted">Full Stack Developer</p>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <nav class="flex gap-8">
+                    <a href="#about" class="text-muted hover:text-neon-blue transition-colors font-orbitron">About</a>
+                    <a href="#projects" class="text-muted hover:text-neon-blue transition-colors font-orbitron">Projects</a>
+                    <a href="#skills" class="text-muted hover:text-neon-blue transition-colors font-orbitron">Skills</a>
+                    
+                    <a href="#contact" class="text-muted hover:text-neon-blue transition-colors font-orbitron">Contact</a>
+                </nav>
+
+                <!-- Social Links -->
+                <div class="flex gap-4">
+                    <a href=" https://github.com/Suharshitha20" target="_blank" class="w-10 h-10 rounded-lg glass flex items-center justify-center hover:scale-105 transition-all">
+                        <span class="text-lg">🔗</span>
+                    </a>
+                    <a href="" target="_blank" class="w-10 h-10 rounded-lg glass flex items-center justify-center hover:scale-105 transition-all">
+                        <span class="text-lg">💼</span>
+                    </a>
+                    
+                    <a href="mailto:harshithabathula456@gmail.com" class="w-10 h-10 rounded-lg glass flex items-center justify-center hover:scale-105 transition-all">
+                        <span class="text-lg">📧</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="border-t border-border/30 mt-8 pt-8 text-center">
+                <p class="text-muted font-orbitron text-sm">
+                    © 2026 Suharshitha Bathula. All rights reserved. Built with HTML & CSS.
+                </p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
